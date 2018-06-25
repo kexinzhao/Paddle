@@ -157,12 +157,12 @@ void Pool2dOpMaker::Make() {
   AddAttr<std::string>("pooling_type",
                        "(string), pooling type, can be \"max\" for max-pooling "
                        "and \"avg\" for average-pooling.")
-      .InEnum({"max", "avg"});
+      .InEnum({"max", "avg"}).SetDefault("max");
   AddAttr<std::vector<int>>("ksize",
                             "(vector<int>) The pooling window "
                             "size(height, width) of the pooling operator. "
                             "If global_pooling = true, ksize and paddings will "
-                            "be ignored.");  // TODO(Chengduo): Add checker.
+                            "be ignored.").SetDefault({2, 2});  // TODO(Chengduo): Add checker.
                                              // (Currently,
   // TypedAttrChecker don't support vector type.)
   AddAttr<bool>("global_pooling",
