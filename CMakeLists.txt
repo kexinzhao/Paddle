@@ -64,13 +64,6 @@ option(WITH_CONTRIB     "Compile the third-party contributation"        OFF)
 option(WITH_ANAKIN      "Compile with Anakin library"                   OFF)
 option(WITH_GRPC     "Use grpc as the default rpc framework"            ${WITH_DISTRIBUTE})
 
-# CMAKE_BUILD_TYPE
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
-      "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel"
-      FORCE)
-endif()
-
 if(ANDROID OR IOS)
     if(ANDROID)
         if(${CMAKE_SYSTEM_VERSION} VERSION_LESS "16")
@@ -131,6 +124,7 @@ if (NOT DEFINED WITH_MKLDNN)
         set(WITH_MKLDNN OFF)
     endif()
 endif()
+set(WITH_MKLDNN OFF)
 ########################################################################################
 
 include(external/mklml)     # download mklml package
@@ -233,9 +227,6 @@ if(WITH_GOLANG)
 endif(WITH_GOLANG)
 
 set(PADDLE_PYTHON_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/python/build")
-
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
 
 add_subdirectory(paddle)
 if(WITH_PYTHON)
