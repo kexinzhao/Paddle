@@ -66,14 +66,16 @@ std::ostream &operator<<(std::ostream &os, const LoDTensor &t) {
   os << "lod: " << t.lod() << "\n";
 
   // only print first ten elements
-  int64_t size = t.numel() < 10 ? t.numel() : 10;
+  int64_t size = t.numel() < 500 ? t.numel() : 500;
   for (int64_t i = 0; i < size; ++i) {
     if (t.type().hash_code() == typeid(float).hash_code()) {
       os << t.data<float>()[i] << " ";
     } else if (t.type().hash_code() == typeid(int64_t).hash_code()) {
       os << t.data<int64_t>()[i] << " ";
+    } else if (t.type().hash_code() == typeid(int).hash_code()) {
+      os << t.data<int>()[i] << " ";
     } else {
-      PADDLE_THROW("LoDTensor data type not in [float, int64_t]");
+      PADDLE_THROW("LoDTensor data type not in [float, int64_t, int]");
     }
   }
 

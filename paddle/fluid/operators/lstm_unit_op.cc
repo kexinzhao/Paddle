@@ -70,7 +70,7 @@ Equation:
 $$
 i, f, o, j = split(X) \\
 C = C_{prev} * sigm(f + forget\_bias) + sigm(i) * tanh(j) \\
-H = C * sigm(o)
+H = tanh(C) * sigm(o)
 $$
 
 )DOC");
